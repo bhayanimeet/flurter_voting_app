@@ -8,4 +8,5 @@ class Global{
   static bool isCongress = false;
   static bool isAap = false;
   static bool isOther = false;
+  static bool isDark = false;
 }

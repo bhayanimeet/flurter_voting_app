@@ -27,6 +27,19 @@ class _HomePageState extends State<HomePage> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                Get.changeThemeMode(
+                    (Get.isDarkMode == true) ? ThemeMode.light : ThemeMode.dark);
+              });
+            },
+            child: const Icon(
+              Icons.light_mode_outlined,
+            ),
+          ),
+        ],
         elevation: 20,
         centerTitle: true,
       ),
@@ -41,226 +54,243 @@ class _HomePageState extends State<HomePage> {
             QuerySnapshot<Map<String, dynamic>> data =
                 snapshot.data as QuerySnapshot<Map<String, dynamic>>;
             allDocs = data.docs;
-            return Center(
-              child: Column(
-                children: [
-                  const SizedBox(height: 100),
-                  Text(
-                    "Voting Live Data",
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  Stack(
-                    alignment: Alignment.center,
+            return StatefulBuilder(
+              builder: (context,setState) {
+                return Center(
+                  child: Column(
                     children: [
-                      Container(
-                        height: 270,
-                        width: 350,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.black, width: 1),
+                      const SizedBox(height: 100),
+                      Text(
+                        "Voting Live Data",
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 35,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              child: Row(
+                      ),
+                      const SizedBox(height: 40),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                              height: 270,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: (Get.isDarkMode == true)
+                                      ? Colors.white
+                                      : Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    flex: 5,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Political Party",
-                                        style: GoogleFonts.notoSans(
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.bold,
+                                  SizedBox(
+                                    height: 50,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 5,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Political Party",
+                                              style: GoogleFonts.notoSans(
+                                                fontSize: 23,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Expanded(
+                                          flex: 5,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Votes",
+                                              style: GoogleFonts.notoSans(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Votes",
-                                        style: GoogleFonts.notoSans(
-                                          fontSize: 25,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
+                                  SizedBox(
+                                    width: 350,
+                                    child: Divider(
+                                      thickness: 1.5,
+                                      color: (Get.isDarkMode == true)
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "BJP",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
                                         ),
                                       ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${allDocs[0].data()['bjp']}",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 350,
+                                    child: Divider(
+                                      thickness: 1.5,
+                                      color: (Get.isDarkMode == true)
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Congress",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${allDocs[0].data()['congress']}",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 350,
+                                    child: Divider(
+                                      thickness: 1.5,
+                                      color: (Get.isDarkMode == true)
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "AAP",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${allDocs[0].data()['aap']}",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 350,
+                                    child: Divider(
+                                      thickness: 1.5,
+                                      color: (Get.isDarkMode == true)
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Other",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${allDocs[0].data()['other']}",
+                                            style: GoogleFonts.arya(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              width: 350,
-                              child: Divider(
-                                thickness: 1.5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "BJP",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "${allDocs[0].data()['bjp']}",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 350,
-                              child: Divider(
-                                thickness: 1.5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Congress",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "${allDocs[0].data()['congress']}",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 350,
-                              child: Divider(
-                                thickness: 1.5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "AAP",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "${allDocs[0].data()['aap']}",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 350,
-                              child: Divider(
-                                thickness: 1.5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Other",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "${allDocs[0].data()['other']}",
-                                      style: GoogleFonts.arya(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 270,
-                        width: 1,
-                        color: Colors.black,
+                          Container(
+                            height: 270,
+                            width: 1,
+                            color: (Get.isDarkMode == true)
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                );
+              }
             );
           }
           return Center(
@@ -281,7 +311,8 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasData) {
             QuerySnapshot<Map<String, dynamic>> data =
                 snapshot.data as QuerySnapshot<Map<String, dynamic>>;
-            List<QueryDocumentSnapshot<Map<String, dynamic>>> allData = data.docs;
+            List<QueryDocumentSnapshot<Map<String, dynamic>>> allData =
+                data.docs;
             return (allData[0].data()['isVoted'] == false)
                 ? FloatingActionButton(
                     onPressed: () {
@@ -454,19 +485,6 @@ class _HomePageState extends State<HomePage> {
                                             'isVoted': Global.isVoted
                                           });
                                         }
-                                        // Map<String, dynamic> data = {
-                                        //   'bjp': Global.bjp,
-                                        //   'congress': Global.congress,
-                                        //   'aap': Global.aap,
-                                        //   'other': Global.other,
-                                        //   'isVoted': Global.isVoted,
-                                        //   'isBjp': Global.isBjp,
-                                        //   'isCongress': Global.isCongress,
-                                        //   'isAap': Global.isAap,
-                                        //   'isOther': Global.isOther,
-                                        // };
-                                        // FireStoreDbHelper.fireStoreDbHelper
-                                        //     .update(data, id: 0.toString());
                                         Navigator.pop(context);
                                       } else {
                                         Get.showSnackbar(
